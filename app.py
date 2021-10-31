@@ -423,7 +423,7 @@ def VerPlausuario():
 #Añadir al carrito de compra desde el usuario final
 @app.route('/Añadir',  methods=['GET', 'POST'])
 @login_required
-def añadir1():
+def anadir1():
     
     cantidad = request.args.get('cantidad')
     print(cantidad)
@@ -432,7 +432,7 @@ def añadir1():
 
 @app.route('/Anadir/<int:id>/',  methods=['GET', 'POST'])
 @login_required
-def añadir(id):
+def anadir(id):
     cantidad=int(request.args.get('cantidad'))
     listatem = list(dbplatos.getPlatosidSecure(id))
     nombre= listatem[0][1]
