@@ -1,0 +1,139 @@
+{%extends 'layout.html'%}
+{% block body %}
+
+<link rel="stylesheet" href="static/css/buscaplatos.css">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/buscaplatos.css') }}" />
+    <title>registro</title>
+</head>
+<body>
+<header>
+    <nav class="nav">
+            <ul>
+                <div class="logo">
+                    <li><img src="../static/images/logo2.png" class="logo" width="140" alt="80"></li></div>
+                <div class="op">
+                    <li><a href="/buscapla"
+                            class="u-border-none u-btn u-button-style u-custom-font u-font-arial u-none u-text-hover-white u-text-white u-btn-2"><span></span>Buscar
+                            Platos</a></li>
+                    <li><a href="/pedidopla"
+                            class="u-border-none u-btn u-button-style u-custom-font u-font-arial u-none u-text-hover-white u-text-white u-btn-2"><span></span>Carrito
+                            de Compras</a></li>
+                    <li><a href="/listadeseos"
+                            class="u-border-none u-btn u-button-style u-custom-font u-font-arial u-none u-text-hover-white u-text-white u-btn-2"><span></span>Lista
+                            de Deseos</a></li>
+                    <li><a href="/comentarios"
+                            class="u-border-none u-btn u-button-style u-custom-font u-font-arial u-none u-text-hover-white u-text-white u-btn-2"><span></span>
+                            Comentarios</a></li>
+                    <li><a href="/logout"
+                            class="u-border-none u-btn u-button-style u-custom-font u-font-arial u-none u-text-hover-white u-text-white u-btn-2"><span></span>Cerrar
+                            Sesion</a></li>
+
+
+                    <li><a href=""><img src="../static/images/user.png" class="user" width="30" alt="50"></a></li>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="form">
+        <h1>Buscar Platos</h1>
+        <h1>{{mensaje}}</h1>
+        <form action='/buscapla'>
+            <p><h1>Nombre Plato</h1></p>
+                <p><input class="constrols" type="text" name="nombre"></p>
+                <p><input class="btn btn-warning" type="submit" value="Consultar">
+            </p>
+        </form>
+            <p><h1>Plato Encontrado</h1></p>
+            <div class="row d-flex justify-content-center">
+            <table class="tabel table-striped table-bordered bg-white table-sm">
+                <tbody>
+                    <tr style="text-align:right">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Precio</th>
+                        <th>Opciones</th>
+
+                    </tr>
+                    {%for j in plato%}
+                    <tr>
+                        <td>{{j[0]}}</td>
+                        <td>{{j[1]}}</td>
+                        <td>{{j[2]}}</td>
+                        <td>{{j[3]}}</td>
+                        <td>
+                            <form action="/Anadir/{{j.0}}/">
+                            
+                                <input type="number" name="cantidad" min="1" step="1" max="50">
+                                <input type="submit" class="btn btn-danger" value="Pedir">
+                          
+                            </form>
+                            <div style="text-align: center;">
+                            <a href="/Deseo/{{j.0}}" class="btn btn-info" >Favorito</a>
+                            </div>
+                            <form action="/Comentarios/{{j.0}}/">
+                                <input type="text" name="comentario">
+                                <input type="submit" class="btn btn-primary" value="Comentar">
+                            </form>
+
+                        </td>
+                    </tr>
+                    {%endfor%}
+
+                </tbody>
+            </table>
+        </div>
+            
+        <p></p>
+
+        <form action='/VerPlausuario' method="GET">
+            <p>
+                <input type="submit" value="Ver Todos Los Platos" class="btn btn-warning">
+            </p>
+
+            <h1>Platos Existentes en el Menu</h1>
+            <div class="row d-flex justify-content-center">
+            <table class="tabel table-striped table-bordered bg-white table-sm">
+                <tbody>
+                    <tr style="text-align:right">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Precio</th>
+                        <th>Opciones</th>
+                    </tr>
+                    {%for i in platos%}
+                    <tr>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+                        <td>{{i[2]}}</td>
+                        <td>{{i[3]}}</td>
+                        <td>
+                        </form>
+                            <form action="/Anadir/{{i.0}}/">
+                            
+                                <input type="number" name="cantidad" min="1" step="1" max="50">
+                                <input type="submit" class="btn btn-danger" value="Pedir">
+                          
+                            </form>
+                            <div style="text-align: center;">
+                            <a href="/Deseo/{{i.0}}" class="btn btn-info" >Favorito</a>
+                            </div>
+                            <form action="/Comentarios/{{i.0}}/">
+                                <input type="text" name="comentario">
+                                <input type="submit" class="btn btn-primary" value="Comentar">
+                            </form>
+
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        
+ 
+    </section>
+    {% endblock %}
